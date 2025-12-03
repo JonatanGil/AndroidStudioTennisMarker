@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Clicks Counter</string>
+    <string name="counter_text">You have clicked %1$d times</string>
+    <string name="clickme">!CLICK ME!</string>
+    <string name="SETS">SETS</string>
+    <string name="GAMES">GAMES</string>
+    <string name="set_actual">CURRENT SET</string>
+    <string name="button_reset_text">RESET</string>
+
+</resources>

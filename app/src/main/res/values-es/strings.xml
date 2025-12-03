@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Contador de clics</string>
+    <string name="counter_text">Has hecho click %1$d veces</string>
+    <string name="clickme">!PÚLSAME!</string>
+    <string name="SETS">SETS</string>
+    <string name="GAMES">JUEGOS</string>
+    <string name="set_actual">SET ACTUAL</string>
+    <string name="button_reset_text">RESETEAR</string>
+</resources>
