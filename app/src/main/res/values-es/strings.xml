@@ -7,4 +7,6 @@
     <string name="GAMES">JUEGOS</string>
     <string name="set_actual">SET ACTUAL</string>
     <string name="button_reset_text">RESETEAR</string>
+    <string name="point_A">PUNTO EQUIPO A</string>
+    <string name="point_B">PUNTO EQUIPO B</string>
 </resources>
