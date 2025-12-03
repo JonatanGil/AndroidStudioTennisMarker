@@ -152,7 +152,7 @@ fun Content(padding: PaddingValues){
                         //gana un set el jugador q tenga ventaja de 2
                         pointsJ1++
                         Log.i("puntos", "PuntosJ1: $pointsJ1 y J2 puntos: $pointsJ2")
-                        if(pointsJ1>6 && pointsJ1<=pointsJ2+2){ // TODO porque no entra
+                        if(pointsJ1>6 && pointsJ1<=pointsJ2+ 2){ // TODO porque no entra
                             tieBreak=false
                             pointsJ1=0
                             pointsJ2=0
