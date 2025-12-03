@@ -61,9 +61,6 @@ fun Content(padding: PaddingValues){
     var gamesJ1 by remember { mutableIntStateOf(0) }
     var gamesJ2 by remember { mutableIntStateOf(0) }
     var tieBreak by remember { mutableStateOf(false) } //TODO tie break
-    var tieBreakJ1 by remember { mutableIntStateOf(0) }
-    var tieBreakJ2 by remember { mutableIntStateOf(0) }
-
 
     var pointsJ1 by remember { mutableIntStateOf(0) }
     var pointsJ2 by remember { mutableIntStateOf(0) }
@@ -153,14 +150,13 @@ fun Content(padding: PaddingValues){
 
                         //si es true, iniciamos el tiebreak sumar a a 1 cuando sea mayor a 2.
                         //gana un set el jugador q tenga ventaja de 2
-                        tieBreakJ1++
-                        if(tieBreakJ1>=7 && tieBreakJ1-2<=tieBreakJ2){
+                        pointsJ1++
+                        Log.i("puntos", "PuntosJ1: $pointsJ1 y J2 puntos: $pointsJ2")
+                        if(pointsJ1>6 && pointsJ1<=pointsJ2+2){ // TODO porque no entra
                             tieBreak=false
-                            tieBreakJ1=0
-                            tieBreakJ2=0
+                            pointsJ1=0
+                            pointsJ2=0
                             setsJ1++
-                        }else{
-                            tieBreakJ1++
                         }
                 }
 
@@ -184,13 +180,74 @@ fun Content(padding: PaddingValues){
 
                 //BOTONES DE MARCAR ++ para el J2
                 Button(onClick = {
+                    if (!tieBreak) {
+                        if (pointsJ2 == 40 && pointsJ1 < 40) {        // GANAR JUEGO (antes J2)
+                            gamesJ2++
+                            if (gamesJ2 == 6 && gamesJ1 <= 4 || gamesJ2 == 7 && gamesJ1 <= 5) {
+                                setsJ2++
+                                gamesJ1 = 0
+                                gamesJ2 = 0
+                                pointsJ1 = 0
+                                pointsJ2 = 0
+
+                                // SI LOS SETS SON 2, YA HA GANADO EL J2
+                                if (setsJ2 == 2) {
+                                    Log.i("GANAJ2", "HA GANADO EL JUGADOR J2 POR TENER $setsJ2 sets")
+                                    desactivarBoton = true
+                                }
+                            } else {
+                                pointsJ1 = 0
+                                pointsJ2 = 0
+                            }
+
+                        } else if (pointsJ2 == 40 && pointsJ1 == 40) {
+                            if (deuceJ1) {
+                                deuceJ1 = false
+                            } else if (deuceJ2) {
+                                gamesJ2++
+                                pointsJ1 = 0
+                                pointsJ2 = 0
+                                deuceJ2 = false
+                            } else {
+                                deuceJ2 = true
+                            }
+
+                        } else {
+                            pointsJ2 += 15
+                            if (pointsJ2 == 45) pointsJ2 = 40
+                        }
+                        //tie break, los puntos ya no sumasn de +15
+                        //sumaran de uno a uno, resetamos a 0 los puntos
+                        if (gamesJ1 == 6 && gamesJ2 == 6) {
+                            tieBreak = true
+                            pointsJ1= 0
+                            pointsJ2= 0
+
+                        }
+
+                    } else {
+                        pointsJ2++
+                        Log.i("puntos", "PuntosJ1: $pointsJ1 y J2 puntos: $pointsJ2")
+
+                        if (pointsJ2 > 6 && pointsJ2 < pointsJ1+2) {
+                            tieBreak = false
+                            pointsJ1 = 0
+                            pointsJ2 = 0
+                            setsJ2++
+                        }
+                    }
+
+                    Log.i("onClick", "PULSADO BOTON $pointsJ2")
+
+
+
 
                 },
                     //desactivar el boton al ganar, activar al resetear
                     enabled = !desactivarBoton) {
 
                     Text(
-                        text = stringResource(R.string.clickme),
+                        text = stringResource(R.string.button_reset_text),
                         fontSize = dimensionResource(id = R.dimen.button_text).value.sp,
                         color = colorResource(id = R.color.teal_200),
                         modifier = Modifier.padding(dimensionResource(id = R.dimen.button_padding))
